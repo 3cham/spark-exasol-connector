@@ -1,5 +1,7 @@
 package com.exasol.spark
 
+import java.sql.ResultSet
+
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.SQLContext
@@ -11,9 +13,7 @@ import org.apache.spark.sql.sources.TableScan
 import org.apache.spark.sql.types.StructType
 
 import com.exasol.spark.rdd.ExasolRDD
-import com.exasol.spark.util.ExasolConnectionManager
-import com.exasol.spark.util.Filters
-import com.exasol.spark.util.Types
+import com.exasol.spark.util.{Converter, ExasolConnectionManager, Filters, Types}
 
 import com.typesafe.scalalogging.LazyLogging
 
@@ -43,6 +43,15 @@ class ExasolRelation(
   override def schema: StructType = configSchema.fold(inferSchema) { userSchema =>
     logger.info(s"Using provided schema $userSchema")
     userSchema
+  }
+
+  private[this] lazy val metadata: String = {
+    val queryRowPreview = s"SELECT * FROM ($queryString) A LIMIT 20"
+    manager.withConnection[String] { conn =>
+      val stmt = conn.createStatement()
+      val resultSet: ResultSet = stmt.executeQuery(queryRowPreview)
+      Converter.resultSetToRows(resultSet, schema).mkString
+    }
   }
 
   override def buildScan(): RDD[Row] =
