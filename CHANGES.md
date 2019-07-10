@@ -1,3 +1,29 @@
+## v0.2.0
+
+> 2019 JAN 21
+
+* Add Spark 2.4+ version
+  [#28](https://github.com/exasol/spark-exasol-connector/issues/28)
+  [#37](https://github.com/exasol/spark-exasol-connector/pull/37) by @morazow
+
+* Add Spark dataframe insert as Exasol table feature
+  [#32](https://github.com/exasol/spark-exasol-connector/issues/32)
+  [#37](https://github.com/exasol/spark-exasol-connector/pull/37) by @morazow
+
+## v0.1.3
+
+> 2018 DEC 10
+
+* Add tests for Unicode strings in predicate pushdown
+  [#12](https://github.com/exasol/spark-exasol-connector/issues/12)
+  [#34](https://github.com/exasol/spark-exasol-connector/pull/34) by @jpizagno
+* Spark dataframe `count` action pushdown
+  [#24](https://github.com/EXASOL/spark-exasol-connector/issues/24)
+  [#29](https://github.com/EXASOL/spark-exasol-connector/pull/29) by @morazow
+* Add `unhandledFilters` function to ExasolRelation
+  [#18](https://github.com/EXASOL/spark-exasol-connector/issues/18)
+  [#30](https://github.com/EXASOL/spark-exasol-connector/pull/30) by @morazow
+
 ## v0.1.2
 
 > 2018 NOV 05
